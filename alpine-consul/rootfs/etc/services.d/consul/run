@@ -1,0 +1,34 @@
+#!/usr/bin/with-contenv sh
+
+pid=$$
+
+sigterm() {
+kill -INT $pid
+}
+
+trap sigterm SIGTERM
+
+if [ -z "${CONSUL_MODE}" ] ; then
+    CONSUL_MODE="server"
+fi
+
+if [ "${CONSUL_MODE}" == "server" ] && [ -z "${NB_CONSUL_SERVER}"  ] ; then
+   NB_CONSUL_SERVER=1
+fi
+
+extra_opts=""
+if [ "${CONSUL_MODE}" == "server" ] ; then
+    extra_opts="-server -bootstrap-expect ${NB_CONSUL_SERVER}"
+fi
+
+if [ -n "SERVERS_TO_JOIN" ] ; then
+    for server in $(echo "${SERVERS_TO_JOIN}" | tr "," " ") ; do
+        extra_opts="${extra_opts} -retry-join ${server}"
+    done
+fi
+
+# Bind to the external (LAN) IP
+BIND=$(getent hosts $(hostname) | awk '{print $1}')
+export GOMAXPROCS=$(getconf _NPROCESSORS_ONLN)
+
+exec s6-setuidgid consul consul agent ${extra_opts} -config-dir /etc/consul -bind ${BIND};
