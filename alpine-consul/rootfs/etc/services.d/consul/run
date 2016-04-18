@@ -27,6 +27,20 @@ if [ -n "SERVERS_TO_JOIN" ] ; then
     done
 fi
 
+IFS='
+'
+for consul_env in $(env | grep "CONSUL_ENV_") ; do
+    var_name=$(echo ${consul_env} | sed -e 's/^CONSUL_ENV_\([^=]*\)=.*/\1/g')
+    var_value=$(echo ${consul_env} | cut -d'=' -f2)
+    consul_env_content=$(echo -e "${consul_env_content},\n  \"${var_name}\": $(echo ${var_value})")
+done
+unset IFS
+consul_env_content=$(echo "${consul_env_content}" | sed -e "1d")
+if [ -n "${consul_env_content}" ] ; then
+    echo -e "{\n${consul_env_content}\n}\n" > /etc/consul/50_docker_env.json
+    chown consul:consul /etc/consul/50_docker_env.json
+fi
+
 # Bind to the external (LAN) IP
 BIND=$(getent hosts $(hostname) | awk '{print $1}')
 export GOMAXPROCS=$(getconf _NPROCESSORS_ONLN)

@@ -12,6 +12,8 @@ RUN chmod +x /usr/local/bin/go-dnsmasq
 RUN apk add --update bash openssl unzip && \
     rm -rf /var/cache/apk/*
 
+ADD rootfs /
+
 RUN cd /tmp && \
     wget https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     cd /usr/local/bin && \
@@ -20,10 +22,9 @@ RUN cd /tmp && \
     mkdir -p /var/consul && \
     addgroup consul && \
     adduser -D -G consul consul && \
-    chown consul:consul /var/consul && \
+    chown -R consul:consul /var/consul /etc/consul && \
     rm -fr /tmp/*
 
-ADD rootfs /
 
 EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 53 53/udp
 
