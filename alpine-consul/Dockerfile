@@ -9,7 +9,7 @@ RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
 ADD https://github.com/janeczku/go-dnsmasq/releases/download/1.0.0/go-dnsmasq_linux-amd64 /usr/local/bin/go-dnsmasq
 RUN chmod +x /usr/local/bin/go-dnsmasq
 
-RUN apk add --update bash openssl unzip && \
+RUN apk add --update bash openssl unzip curl && \
     rm -rf /var/cache/apk/*
 
 ADD rootfs /
