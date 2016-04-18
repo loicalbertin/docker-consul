@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ENV CONSUL_VERSION=0.6.3
+ENV CONSUL_VERSION=0.6.4
 ENV S6_OVERLAY_VERSION=v1.17.2.0
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/
