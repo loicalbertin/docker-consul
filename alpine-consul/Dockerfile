@@ -30,3 +30,5 @@ EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 53 53/udp
 
 ENTRYPOINT ["/init"]
 
+VOLUME /var/consul
+
