@@ -21,7 +21,7 @@ RUN cd /tmp && \
     mkdir -p /etc/consul && \
     mkdir -p /var/consul && \
     addgroup consul && \
-    adduser -D -G consul consul && \
+    adduser -D -s /bin/bash -g consul -G consul consul && \
     chown -R consul:consul /var/consul /etc/consul && \
     rm -fr /tmp/*
 
