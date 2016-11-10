@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.4
 
 ENV CONSUL_VERSION=0.6.4
 ENV S6_OVERLAY_VERSION=v1.17.2.0
