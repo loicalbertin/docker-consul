@@ -1,12 +1,13 @@
 FROM alpine:3.4
 
-ENV CONSUL_VERSION=0.6.4
-ENV S6_OVERLAY_VERSION=v1.17.2.0
+ENV CONSUL_VERSION=0.7.0
+ENV S6_OVERLAY_VERSION=v1.18.1.5
+ENV GO_DNSMASQ_VERSION=1.0.7
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/
 RUN gunzip -c /tmp/s6-overlay-amd64.tar.gz | tar -xf - -C /
 
-ADD https://github.com/janeczku/go-dnsmasq/releases/download/1.0.0/go-dnsmasq_linux-amd64 /usr/local/bin/go-dnsmasq
+ADD https://github.com/janeczku/go-dnsmasq/releases/download/${GO_DNSMASQ_VERSION}/go-dnsmasq_linux-amd64 /usr/local/bin/go-dnsmasq
 RUN chmod +x /usr/local/bin/go-dnsmasq
 
 RUN apk add --update bash openssl unzip curl && \
