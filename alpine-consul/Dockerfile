@@ -1,6 +1,6 @@
 FROM alpine:3.5
 
-ENV S6_OVERLAY_VERSION=v1.18.1.5
+ENV S6_OVERLAY_VERSION=v1.19.1.1
 ENV GO_DNSMASQ_VERSION=1.0.7
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/
