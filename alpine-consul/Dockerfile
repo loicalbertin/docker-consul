@@ -1,6 +1,5 @@
 FROM alpine:3.5
 
-ENV CONSUL_VERSION=0.7.5
 ENV S6_OVERLAY_VERSION=v1.18.1.5
 ENV GO_DNSMASQ_VERSION=1.0.7
 
@@ -14,6 +13,8 @@ RUN apk add --update bash openssl unzip curl && \
     rm -rf /var/cache/apk/*
 
 ADD rootfs /
+
+ENV CONSUL_VERSION=0.8.0
 
 RUN cd /tmp && \
     wget https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
