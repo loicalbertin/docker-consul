@@ -2,4 +2,4 @@
 
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${script_dir}
-docker build -t loicalbertin/alpine-consul .
+docker build $@  -t loicalbertin/alpine-consul .
