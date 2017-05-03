@@ -14,7 +14,7 @@ RUN apk add --update bash openssl unzip curl && \
 
 ADD rootfs /
 
-ENV CONSUL_VERSION=0.8.0
+ENV CONSUL_VERSION=0.8.1
 
 RUN cd /tmp && \
     wget https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
