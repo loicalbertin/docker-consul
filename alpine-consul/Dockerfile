@@ -17,7 +17,7 @@ ADD rootfs /
 ENV CONSUL_VERSION=0.8.4
 
 RUN cd /tmp && \
-    wget https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
+    curl -O https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     cd /usr/local/bin && \
     unzip /tmp/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     mkdir -p /etc/consul && \
@@ -33,4 +33,12 @@ EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 53 53/udp
 ENTRYPOINT ["/init"]
 
 VOLUME /var/consul
+
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/loicalbertin/docker-consul.git" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.schema-version="1.0.0-rc1"
 
