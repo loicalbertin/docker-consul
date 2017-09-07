@@ -21,7 +21,7 @@ if [ "${CONSUL_MODE}" == "server" ] ; then
     extra_opts="-server -bootstrap-expect ${NB_CONSUL_SERVER}"
 fi
 
-if [ -n "SERVERS_TO_JOIN" ] ; then
+if [ -n "${SERVERS_TO_JOIN}" ] ; then
     for server in $(echo "${SERVERS_TO_JOIN}" | tr "," " ") ; do
         extra_opts="${extra_opts} -retry-join ${server}"
     done
